@@ -22,7 +22,7 @@ def get_descriptor_from_image_url(image_url):
                 "role": "user",
                 "content": [
                     {"type": "text",
-                     "text": "Describe this image in a very detailed and objective manner. Talk about the colors and shapes you see. "},
+                     "text": "Describe this image in a very detailed and objective manner. Talk about the objects, colors, styles and ambiance you see. "},
                     {
                         "type": "image_url",
                         "image_url": {
