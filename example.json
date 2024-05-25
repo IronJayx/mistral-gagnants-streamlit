@@ -1,0 +1,12 @@
+{
+  "Scores": {
+    "user1": "global score",
+    "user2": "global score"
+  },
+  "Feedback": {
+    "user1": "Short feedback on visual appeal, composition, and lighting.",
+    "user2": "Short feedback on visual appeal, composition, and lighting."
+  },
+  "winner": "Identify the winner based on the total scores. either user1 or user2",
+  "explanation": "explanation of what is better in winning user over losing user"
+}

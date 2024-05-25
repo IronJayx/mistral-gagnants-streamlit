@@ -1,4 +1,4 @@
-from fastapi import FastAPI,  HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request
 from mistral import MistralLLM
 from dalle import DALLEVision
 import uvicorn
@@ -19,6 +19,7 @@ async def generate_image(request: Request):
     image_url = dalle.generate_image_from_prompt(prompt)
     return {"url": image_url}
 
+
 @app.post("/compare_images")
 async def compare_images(request: Request):
     data = await request.json()
@@ -28,10 +29,27 @@ async def compare_images(request: Request):
 
     if not image1_url or not image2_url:
         raise HTTPException(status_code=400, detail="Both image1_url and image2_url are required")
+    original_image_descriptor = dalle.get_descriptor_from_image_url(original_image_url)
     descriptor_1 = dalle.get_descriptor_from_image_url(image1_url)
+    judgment_1 = mistral.feedback_individuel(original_image_descriptor, descriptor_1)
     descriptor_2 = dalle.get_descriptor_from_image_url(image2_url)
-    judgement = mistral.judge(original_image_url, descriptor_1, descriptor_2)
-    return judgement
+    judgment_2 = mistral.feedback_individuel(original_image_descriptor, descriptor_2)
+    comparison = mistral.judge_compare(original_image_url, descriptor_1, descriptor_2)
+
+    final_json = {
+        "Scores": {
+            "user1": judgment_1['score'],
+            "user2": judgment_2['score']
+        },
+        "Feedback": {
+            "user1": judgment_1['feedback'],
+            "user2": judgment_2['feedback']
+        },
+        "winner": comparison['winner'],
+        "explanation": comparison['explanation']
+    }
+    return final_json
+
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)
