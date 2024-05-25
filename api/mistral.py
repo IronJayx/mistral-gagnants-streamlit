@@ -41,7 +41,23 @@ class MistralLLM:
         Evaluation: """.format(original_description=original_description, user1_description=user1_description,
                                user2_description=user2_description)
 
-        return self.query(judge_prompt)
+        judgment = self.query(judge_prompt)
+
+
+    # Extract the winner
+        winner_start = judgment.rfind("Winner: ")
+        winner = judgment[winner_start:].split(": ")[1]
+
+        # Extract the explanation
+        explanation = judgment[:winner_start].strip()
+
+        # Create the JSON object
+        result = {
+            "winner": winner,
+            "explanation": explanation
+        }
+
+        return result
 
     def generate_prompt_of_image(self, image_descriptor):
         llm_player_prompt = f"""
