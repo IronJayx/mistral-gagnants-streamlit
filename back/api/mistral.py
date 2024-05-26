@@ -69,16 +69,15 @@ class MistralLLM:
         2: The user prompt is mostly not similar: misses some key aspects of the image described by original prompt
         3: The user prompt is mostly similar: describes a similar image to the one described by original prompt, but still could be improved
         4: The user prompt is excellent: relevant, direct, detailed, and addresses all aspects described in original prompt
+
+        Your feedback should include evoke some of the key ideas of the original prompt that are not present in the user prompt. It should be addressed to the user in order to teach him, so be constructive, and address the user directly using "you". 
+        Provide your feedback as follows:
         
-        Your response should include: 
-        - Total rating: An evaluation score (your rating, as a floating point number between 1 and 4)
-        - Feedback: on how to improve the prompt in the form of a keyword list: Make your prompt closer to the image stykle by adding info on the style: pixelised, cartoon... 
+        Feedback:
+        Evaluation: (your rationale for the rating and feedback, as a short text of 20 words maximum)
+        Total rating: (your rating, as a floating point number between 1 and 4)
         
-        Additional gidelines on how to deliver feedback
-        - Be nice and friendly should be addressed to the user in order to teach him, so be constructive, and address the user directly using "you". 
-        - Feedback must be 10 words maximum
-        
-        You MUST provide values for 'Feedback:' and 'Total rating:' in your answer.
+        You MUST provide values for 'Evaluation:' and 'Total rating:' in your answer.
         
         Now here are the original prompt and user prompt.
         
@@ -86,12 +85,11 @@ class MistralLLM:
         User prompt: {user_description}
         
         Provide your feedback. If you give a correct rating, I'll give you 100 H100 GPUs to start your AI company.
-        Total Rating:
-        Feedback: """.format(original_description=original_description, user_description=user_description)
+        Feedback:
+        Evaluation: """.format(original_description=original_description, user_description=user_description)
 
         response = self.query(feedback_prompt)
 
-        print(response)
         
         rating_start = response.rfind("Total rating: ")
         rating = response[rating_start:].split(": ")[1]

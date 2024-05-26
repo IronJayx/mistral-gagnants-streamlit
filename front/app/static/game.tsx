@@ -11,7 +11,7 @@ interface Player {
 
 export const games = [
     {
-      id: "Event Mascot",
+      id: "Generate an event Mascot",
       url: "https://media.discordapp.net/attachments/1243124066324582475/1244201003570561106/file-l214r0JPdvxpDvszLf1tmqEr.png?ex=66543ffb&is=6652ee7b&hm=81c4602c3c3062c758eee0fa944a93e879ca721ad96e4c37ef0870396bd7ffab&=&format=webp&quality=lossless&width=393&height=393",
       prompt: "A mascot for Mistral AI Hackathon, which is happy and studious. The mascot should be lively, appealing to hackers and broad people of all generation.\nThe mascot is a realistic animal, with red, orange and yellow colors separated by blocks, including fluffy hair.\nThe art style is realistic and pixelated (only the mascot). The background is a big place with high ceiling with plants and books and meeting rooms.",
       prompt_header: "Best practice for prompting a mascot:",
