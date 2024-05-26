@@ -39,7 +39,13 @@ async def compare_images(request: Request):
 
     if not image1_url or not image2_url:
         raise HTTPException(status_code=400, detail="Both image1_url and image2_url are required")
-    original_image_descriptor = dalle.get_descriptor_from_image_url(original_image_url)
+    #original_image_descriptor = dalle.get_descriptor_from_image_url(original_image_url)
+    original_image_descriptor = """"A mascot for Mistral AI Hackathon, which is happy and studious. The mascot should be lively, appealing to hackers and broad people of all generation.
+
+    The mascot is a realistic animal, with red, orange and yellow colors separated by blocks, including fluffy hair.
+
+    The art style is realistic and pixelated (only the mascot). The background is a big place with high ceiling with plants and books and meeting rooms.
+    """
     descriptor_1 = dalle.get_descriptor_from_image_url(image1_url)
     judgment_1 = mistral.feedback_individuel(original_image_descriptor, descriptor_1)
     descriptor_2 = dalle.get_descriptor_from_image_url(image2_url)
