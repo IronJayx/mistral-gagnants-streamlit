@@ -38,10 +38,6 @@ async def compare_images(request: Request):
     image1_url = data.get("image1_url")
     image2_url = data.get("image2_url")
 
-    print(original_image_url)
-    print(image1_url)
-    print(image2_url)
-
     if not image1_url or not image2_url:
         raise HTTPException(status_code=400, detail="Both image1_url and image2_url are required")
     original_image_descriptor = dalle.get_descriptor_from_image_url(original_image_url)

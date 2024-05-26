@@ -18,12 +18,12 @@ export const games = [
       promt_best_practice: "Define the Brand Identity.\nCharacter Traits.\nAppearance Details.\nPose and Action.\nStyle and Aesthetic.\nBackground and Environment."
     },
     {
-      id: "2",
+      id: "Generate a game asset",
       url: "https://strikingloo.github.io/resources/ai-generated-images/dalle_2/DALL_E_2022-08-16_17.49.06_-_Pixar_style_3D_render_of_a_baby_hippo,_4k,_high_resolution,_trending_in_artstation.png",
       prompt: 'Pixar style baby hippo'
     },
     {
-      id: "3",
+      id: "Generate a painting",
       url: "https://strikingloo.github.io/resources/ai-generated-images/dalle_2/DALL_E_2022-08-16_17.50.50_-_An_oil_painting_of_a_mechanical_clockwork_flying_machine_from_the_renaissance,_Gorgeous_digital_painting,_amazing_art,_artstation_3,_realistic.png",
       prompt: 'oil painting of a mechanical clockwork flying machine'
     }
@@ -33,10 +33,10 @@ export const games = [
 export const players: Player[] = [
     {
         id: "1",
-        name: "Joe"
+        name: "Player 1"
     },
     {
         id: "2",
-        name: "Joelle"
+        name: "Player 2"
     }
 ];
