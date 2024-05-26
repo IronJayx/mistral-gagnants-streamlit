@@ -1,30 +1,51 @@
 // components/Round.tsx
 import React, { useState } from 'react';
 import Image from './Image';
+import ClipLoader from "react-spinners/ClipLoader";
 
 interface RoundProps {
+  orginalUrl: string;
   users: { id: string, name: string }[];
   imageUrls: string[];
   roundNumber: number;
 }
 
-const Round: React.FC<RoundProps> = ({ users, imageUrls, roundNumber }) => {
-  const [feedbackData, setFeedbackData] = useState<{ scores: number[], feedback: string[] } | null>(null);
+const Round: React.FC<RoundProps> = ({ orginalUrl, users, imageUrls, roundNumber }) => {
+  const [feedbackLoading, setFeedbackLoading] = useState(false);
+  const [feedbackData, setFeedbackData] = useState<{ scores: number[], feedback: string[], winner: number, explanation?: string } | null>(null);
   const [winnerIndex, setWinnerIndex] = useState<number | null>(null);
 
-  const fetchFeedback = () => {
-    // Simulating an API call to get feedback
-    const feedback = {
-      "scores": [1, 2],
-      "feedback": ["Short feedback on visual appeal, composition, and lighting.", "Short feedback on visual appeal, composition, and lighting."],
-    };
-    
-    // Compute the winner based on the scores
-    const maxScore = Math.max(...feedback.scores);
-    const winnerIdx = feedback.scores.indexOf(maxScore);
+  const fetchFeedback = async () => {
+    setFeedbackLoading(true);
+    try {
+      const baseUrl = 'http://127.0.0.1:8000';
+      const url = `${baseUrl}/compare_images`;
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          original_image_url: orginalUrl,
+          image1_url: imageUrls[0],
+          image2_url: imageUrls[1],
+        })      });
 
-    setFeedbackData(feedback);
-    setWinnerIndex(winnerIdx);
+      if (!response.ok) {
+        throw new Error('Failed to compare images');
+      }
+
+      const feedback = await response.json();
+      console.log('Feedback data:', feedback);
+
+      setFeedbackData(feedback);
+      setWinnerIndex(feedback.winner);
+
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setFeedbackLoading(false);
+    }
   };
 
   const allUrlsAvailable = imageUrls.length === users.length && imageUrls.every(url => url !== 'loading');
@@ -45,8 +66,21 @@ const Round: React.FC<RoundProps> = ({ users, imageUrls, roundNumber }) => {
         <button
           onClick={fetchFeedback}
           className="bg-green-500 text-white p-4 rounded flex items-center space-x-2 mt-4">
-          <span>Get Results</span>
+          <span>Get feedback</span>
         </button>
+      )}
+
+      {feedbackLoading && (
+        <div className="feedback-loading-container mt-8 p-4 bg-white rounded-lg shadow-lg w-full">
+          <h3 className="text-xl font-bold mb-2">Loading Feedback...</h3>
+          <div className="flex justify-between space-x-8">
+            {users.map((user) => (
+              <div key={user.id} className="flex-1 flex justify-center items-center">
+                <ClipLoader color="#4A90E2" loading={feedbackLoading} />
+              </div>
+            ))}
+          </div>
+        </div>
       )}
 
       {feedbackData && (

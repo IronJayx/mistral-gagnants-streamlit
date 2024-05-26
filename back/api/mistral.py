@@ -71,6 +71,8 @@ class MistralLLM:
         4: The user prompt is excellent: relevant, direct, detailed, and addresses all aspects described in original prompt
         
         Your feedback should be addressed to the user in order to teach him, so be constructive, and address the user directly using "you". 
+        Start your feedback with: Your prompt..... 
+        
         Provide your feedback as follows:
         
         Feedback:::

@@ -11,9 +11,11 @@ interface Player {
 
 export const games = [
     {
-      id: "1",
-      url: "https://media.discordapp.net/attachments/1243124066324582475/1243856079926853682/image.png?ex=6652febf&is=6651ad3f&hm=5c70007399f4e30ffdfe2a3d2cb8b76d196f166f911b7dd52e9da5a7dd01d30b&=&format=webp&quality=lossless&width=570&height=564",
-      prompt: 'formula 1'
+      id: "Event Mascot",
+      url: "https://media.discordapp.net/attachments/1243124066324582475/1244201003570561106/file-l214r0JPdvxpDvszLf1tmqEr.png?ex=66543ffb&is=6652ee7b&hm=81c4602c3c3062c758eee0fa944a93e879ca721ad96e4c37ef0870396bd7ffab&=&format=webp&quality=lossless&width=393&height=393",
+      prompt: "A mascot for Mistral AI Hackathon, which is happy and studious. The mascot should be lively, appealing to hackers and broad people of all generation.\nThe mascot is a realistic animal, with red, orange and yellow colors separated by blocks, including fluffy hair.\nThe art style is realistic and pixelated (only the mascot). The background is a big place with high ceiling with plants and books and meeting rooms.",
+      prompt_header: "Best practice for prompting a mascot:",
+      promt_best_practice: "Define the Brand Identity.\nCharacter Traits.\nAppearance Details.\nPose and Action.\nStyle and Aesthetic.\nBackground and Environment."
     },
     {
       id: "2",

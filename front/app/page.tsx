@@ -1,5 +1,4 @@
 "use client";
-
 // pages/index.tsx
 import React, { useState, useEffect } from 'react';
 import Game from './components/Game';
@@ -27,7 +26,7 @@ export default function Home() {
 
     const allUrlsFilled = Object.keys(roundUrls).length === players.length && Object.values(roundUrls).every(url => url !== 'loading');
     
-    if (allUrlsFilled) {
+    if (allUrlsFilled && currentRound <= 3) {
       setCurrentRound((prevRound) => prevRound + 1);
       if (currentRound + 1 === players.length) {
         setRoundLive(false);
@@ -55,20 +54,22 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch('/api/prompt2image', {
+      const baseUrl = 'http://127.0.0.1:8000';
+      const url = `${baseUrl}/generate_image`;
+      const response = await fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ prompt: input }),
       });
-
+    
       if (!response.ok) {
         throw new Error('Failed to generate image');
       }
-
+    
       const data = await response.json();
-      console.log('Generated image URL:', data.url);
+      console.log('Generated image URL:', data.url);    
 
       if (isFirstRound) {
         setRound1ImageUrls((prevUrls) => ({
@@ -138,14 +139,19 @@ export default function Home() {
       <div className="flex flex-col w-3/4 space-y-16">
 
       {showReveal && (
-          <Reveal winnerName={players[0].name} gamePrompt={games[currentGameIndex].prompt} />
+          <Reveal 
+            winnerName={players[0].name} 
+            gamePrompt={games[currentGameIndex].prompt} 
+            promptHeader={games[currentGameIndex].prompt_header} 
+            promptBestPractice={games[currentGameIndex].promt_best_practice}
+          />
         )}
         
         {/* Display Round 2 if it's ready */}
-        {showRound2 && <Round users={players} imageUrls={Object.values(round2ImageUrls)} roundNumber={2} />}
+        {showRound2 && <Round orginalUrl={games[currentGameIndex].url} users={players} imageUrls={Object.values(round2ImageUrls)} roundNumber={2} />}
 
         {/* Display Round 1 */}
-        <Round users={players} imageUrls={Object.values(round1ImageUrls)} roundNumber={1} />
+        <Round orginalUrl={games[currentGameIndex].url} users={players} imageUrls={Object.values(round1ImageUrls)} roundNumber={1} />
 
         <div className="h-24"></div>
 
@@ -158,7 +164,7 @@ export default function Home() {
             {!showRound2 ? (
               <button
                 onClick={handleNextRoundClick}
-                className="bg-green-500 text-white p-4 rounded flex items-center space-x-2">
+                className="bg-blue-500 text-white p-4 rounded flex items-center space-x-2">
                 <ArrowRight className="w-5 h-5" />
                 <span>Go to Round 2</span>
               </button>
@@ -166,7 +172,7 @@ export default function Home() {
               <button
                 onClick={handleRevealClick}
                 className="bg-yellow-500 text-white p-4 rounded flex items-center space-x-2">
-                <span>Reveal Winner</span>
+                <span>Reveal Original prompt</span>
               </button>
             ) : (
               <button
