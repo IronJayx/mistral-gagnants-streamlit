@@ -26,7 +26,7 @@ async def generate_image(request: Request):
     prompt = data.get("prompt")
     if not prompt:
         raise HTTPException(status_code=400, detail="Prompt is required")
-    image_url = dalle.generate_image_from_prompt(prompt)
+    image_url = dalle.generate_image_from_prompt_dalle(prompt)
     return {"url": image_url}
 
 
