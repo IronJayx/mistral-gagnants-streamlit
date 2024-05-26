@@ -51,11 +51,11 @@ async def compare_images(request: Request):
 
     The art style is realistic and pixelated (only the mascot). The background is a big place with high ceiling with plants and books and meeting rooms.
     """
-    descriptor_1 = dalle.get_descriptor_from_image_url(image1_url)
-    judgment_1 = mistral.feedback_individuel(original_image_descriptor, descriptor_1)
-    descriptor_2 = dalle.get_descriptor_from_image_url(image2_url)
-    judgment_2 = mistral.feedback_individuel(original_image_descriptor, descriptor_2)
-    comparison = mistral.judge_compare(original_image_url, descriptor_1, descriptor_2)
+    #descriptor_1 = dalle.get_descriptor_from_image_url(image1_url)
+    judgment_1 = mistral.feedback_individuel(original_image_descriptor, image1_url)
+    #descriptor_2 = dalle.get_descriptor_from_image_url(image2_url)
+    judgment_2 = mistral.feedback_individuel(original_image_descriptor, image2_url)
+    comparison = mistral.judge_compare(original_image_url, image1_url, image2_url)
 
     final_json = {
         "scores": [judgment_1['score'], judgment_2['score']],
