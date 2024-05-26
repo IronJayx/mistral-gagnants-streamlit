@@ -75,7 +75,7 @@ class MistralLLM:
         
         Feedback:::
         Evaluation: (your rationale for the rating and feedback, as a short text of 20 words maximum)
-        Total rating: (your rating, as a number between 1 and 4)
+        Total rating: (your rating, as a floating point number between 1 and 4)
         
         You MUST provide values for 'Evaluation:' and 'Total rating:' in your answer.
         
