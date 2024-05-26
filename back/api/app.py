@@ -1,11 +1,21 @@
 from fastapi import FastAPI, HTTPException, Request
+from fastapi.middleware.cors import CORSMiddleware
 from mistral import MistralLLM
 from dalle import DALLEVision
 import uvicorn
 from dotenv import load_dotenv
 
 load_dotenv()
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Adjust this to specify allowed origins
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 mistral = MistralLLM()
 dalle = DALLEVision()
 
@@ -37,9 +47,9 @@ async def compare_images(request: Request):
     comparison = mistral.judge_compare(original_image_url, descriptor_1, descriptor_2)
 
     final_json = {
-        "Scores": {
-            "user1": judgment_1['score'],
-            "user2": judgment_2['score']
+        "scores": [ judgment_1['score'], judgment_2['score']]
+            "user1":,
+            "user2": 
         },
         "Feedback": {
             "user1": judgment_1['feedback'],
