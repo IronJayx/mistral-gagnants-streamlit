@@ -65,10 +65,10 @@ class MistralLLM:
         Give your answer on a scale of 1 to 4, where 1 means that the user_description is describing a totally different image from the one described by original_description, and 4 means that user_description is perfectly describing the image described by original_description.
         
         Here is the scale you should use to build your answer:
-        1: The user_description is terrible: completely different from the image described by original_description, or very partial
-        2: The user_description is mostly not similar: misses some key aspects of the image described by original description
-        3: The user_description is mostly similar: describes a similar image to the one described by original description, but still could be improved
-        4: The user_description is excellent: relevant, direct, detailed, and addresses all aspects described in original description
+        1: The user description is terrible: completely different from the image described by original_description, or very partial
+        2: The user description is mostly not similar: misses some key aspects of the image described by original description
+        3: The user description is mostly similar: describes a similar image to the one described by original description, but still could be improved
+        4: The user description is excellent: relevant, direct, detailed, and addresses all aspects described in original description
         
         Provide your feedback as follows:
         

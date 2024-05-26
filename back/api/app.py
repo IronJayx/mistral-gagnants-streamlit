@@ -49,7 +49,7 @@ async def compare_images(request: Request):
     final_json = {
         "scores": [judgment_1['score'], judgment_2['score']],
         "feedback": [judgment_1['feedback'], judgment_2['feedback']],
-        "winner": comparison['winner'],
+        "winner": int(comparison['winner'] == "user1"),
         "explanation": comparison['explanation']
     }
     return final_json
